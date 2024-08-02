@@ -2,6 +2,10 @@ function app() {
   const inputSearchElement = document.querySelector("#input-search");
   const btnSearchElement = document.querySelector("#btn-search");
   const pokemonSearchResult = document.querySelector("#pokemon-result");
+  const btnInventory = document.querySelector("#btn-inventory");
+  const pokemonInventoryDisplay = document.querySelector("#pokemon-inventory");
+  const mainPokemonDisplayContainer = document.querySelector("#main-container");
+  let savePokemons;
 
   //! Fetch to pokemon API
   async function fetchPokemonData(searchQuery) {
@@ -35,6 +39,10 @@ function app() {
                 <img src="${pokemon.sprites.front_default}" alt="pokemon-front-sprite"/>
                 <p>${pokemon.species.name}</p>
             </header>
+
+            <main class="article-main-container">
+                <button class="btn-icon" id="btn-save-pokemon">  <i class="fa-regular fa-bookmark fa-lg" ></i></i></button>
+            </main>
         </article>
     `;
   }
@@ -51,7 +59,15 @@ function app() {
 
   //! First Load
   document.addEventListener("DOMContentLoaded", () => {
+    //* Load a default pokemon
     getPokemonRequest("pikachu");
+
+    //* Check local Storage
+    if (!localStorage.getItem("pokemons")) {
+      savePokemons = [];
+    } else {
+      savePokemons = JSON.parse(localStorage.getItem("pokemons"));
+    }
   });
 
   //! Pokemon btn search event
@@ -67,6 +83,31 @@ function app() {
 
       //* Request and display to UI
       getPokemonRequest(inputSearchElement.value);
+    }
+  });
+
+  //! Btn inventory
+  btnInventory.addEventListener("click", (e) => {
+    e.preventDefault();
+    //* Toggle Hide
+    pokemonInventoryDisplay.classList.toggle("hide");
+  });
+
+  //! Save pokemon display
+  mainPokemonDisplayContainer.addEventListener("click", (e) => {
+    //? Check the event target
+    if (e.target.classList.contains("fa-bookmark")) {
+      //* Traverse to article card
+      const articleCard = e.target.closest(".article-card");
+
+      //* Get the textContent
+      const pokemonsName = articleCard.querySelector("p").textContent;
+
+      //* Save it to save pokemons array
+      savePokemons.push(pokemonsName);
+
+      //* Save it to localStorage
+      localStorage.setItem("pokemons", JSON.stringify(savePokemons));
     }
   });
 }
