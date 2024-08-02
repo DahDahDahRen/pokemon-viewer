@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --ff-press-start: "Press Start 2P", system-ui;
+  --primary-clr: #cc322a;
+  --secondary-clr: #ecd9db;
+  --accent-clr: #a7b3d3;
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  font-family: var(--ff-press-start);
+  background-color: var(--primary-clr);
+  color: var(--secondary-clr);
+}
+
+h1 {
+  text-align: center;
+  letter-spacing: -2px;
+  padding: 40px 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+button,
+input {
+  font-family: "Inter", monospace;
+}
+
+.input-element {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.24px;
+  padding: 8px;
+}
+
+.btn {
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--accent-clr);
+  color: #07153d;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-result-container {
+  display: flex;
+  justify-content: center;
+  padding: 80px 0;
+}
