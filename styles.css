@@ -15,6 +15,10 @@
   /* border: 1px solid black; */
 }
 
+ul {
+  list-style: none;
+}
+
 body {
   height: 100vh;
   /* display: flex;
@@ -120,6 +124,7 @@ input {
   background-color: var(--secondary-clr);
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  padding: 0.5rem;
 }
 
 .hide {
@@ -144,4 +149,24 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.pokemon-inventory-item {
+  color: #07153d;
+  font-size: 0.5rem;
+  padding: 0.25rem 0;
+}
+
+.pokemon-inventory-item_img {
+  width: 2.05rem;
+}
+
+.pokemon-inventory-card {
+  gap: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
 }

@@ -37,13 +37,28 @@ function app() {
         <article class="article-card">
             <header>
                 <img src="${pokemon.sprites.front_default}" alt="pokemon-front-sprite"/>
-                <p>${pokemon.species.name}</p>
+                <p class="text-center">${pokemon.species.name}</p>
             </header>
 
             <main class="article-main-container">
                 <button class="btn-icon" id="btn-save-pokemon">  <i class="fa-regular fa-bookmark fa-lg" ></i></i></button>
             </main>
         </article>
+    `;
+  }
+
+  function generatePokemonInventoryItemHTMl(pokemon) {
+    return `
+        <li class="pokemon-inventory-item">
+          <article class="pokemon-inventory-card">
+            <header>
+                <img class="pokemon-inventory-item_img"   src="${pokemon.sprites.front_default}"  alt="pokemon sprite img">
+            </header>
+            <main> 
+                <p>${pokemon.species.name}</p>
+            </main>
+          </article>
+        </li>
     `;
   }
 
@@ -87,10 +102,26 @@ function app() {
   });
 
   //! Btn inventory
-  btnInventory.addEventListener("click", (e) => {
+  btnInventory.addEventListener("click", async (e) => {
     e.preventDefault();
     //* Toggle Hide
     pokemonInventoryDisplay.classList.toggle("hide");
+
+    //* Empty inventory
+    pokemonInventoryDisplay.innerHTML = "";
+
+    //* Fetch pokemons data
+    const pokemons = savePokemons.map((pokemon) => fetchPokemonData(pokemon));
+
+    //* Parse pokemons data
+    const parseData = await Promise.all([...pokemons]);
+
+    //* Generate template and append it to UI
+    parseData.reverse().forEach((pokemon) => {
+      const html = generatePokemonInventoryItemHTMl(pokemon);
+
+      pokemonInventoryDisplay.insertAdjacentHTML("afterbegin", html);
+    });
   });
 
   //! Save pokemon display
@@ -108,6 +139,13 @@ function app() {
 
       //* Save it to localStorage
       localStorage.setItem("pokemons", JSON.stringify(savePokemons));
+    }
+  });
+
+  //! Escape key press event
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      pokemonInventoryDisplay.classList.toggle("hide");
     }
   });
 }
